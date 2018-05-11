@@ -1,0 +1,13 @@
+{
+  "short_name": "Redux Loop TS example",
+  "name": "Redux Loop Typescript example",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone"
+}

@@ -1,0 +1,36 @@
+{
+  "name": "redux-loop-ts-example",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "repository": "https://github.com/grzegorzmoskal/redux-loop-ts-example",
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "dependencies": {
+    "prettier": "^1.12.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-scripts-ts": "2.15.1"
+  },
+  
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "@types/node": "^8.0.53",
+    "@types/react": "^16.3.14",
+    "@types/react-dom": "^16.0.5",
+    "@types/react-redux": "^5.0.13",
+    "@types/react-test-renderer": "^16.0.1",
+    "@types/redux-thunk": "^2.1.0",
+    "react-test-renderer": "^16.3.2",
+    "redux": "^3.7.2",
+    "redux-loop": "^4.2.6",
+    "tslint-config-prettier": "^1.12.0",
+    "tslint-consistent-codestyle": "^1.13.0",
+    "typescript": "^2.8.3"
+  }
+}
