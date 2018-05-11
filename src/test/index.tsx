@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as shallowRenderer from "react-test-renderer/shallow"
-import { State, initialState, reducer } from "./reducers/index"
+import { State, initialState, reducer } from "../reducers/index"
 import { Provider } from "react-redux"
 import * as deepRenderer from "react-test-renderer"
 import { createStore, compose } from "redux"

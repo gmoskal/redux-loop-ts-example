@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "outDir": "build/dist",
+    "baseUrl": ".",
+    "types": [
+        "jest"
+    ],
     "module": "esnext",
     "sourceMap": true,
     "target": "es5",
@@ -8,6 +12,7 @@
     "moduleResolution": "node",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,

@@ -19,5 +19,5 @@ ReactDOM.render(
     <Provider store={store}>
         <CounterContainer />
     </Provider>,
-    document.getElementById("root")
+    document.getElementById("app")
 )

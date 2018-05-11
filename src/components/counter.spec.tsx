@@ -1,5 +1,5 @@
 import * as React from "react"
-import { renderComponent } from "../test-helpers"
+import { renderComponent } from "../test"
 import { CounterContainer } from "./counter"
 
 describe("components/Counter", () =>
