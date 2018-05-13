@@ -1,10 +1,20 @@
 {
   "compilerOptions": {
     "outDir": "build/dist",
-    "baseUrl": ".",
     "types": [
         "jest"
     ],
+    "typeRoots": [
+        "src/definitions/"
+    ],
+    "baseUrl": "./",
+    "paths": {
+        "*": [
+            "src/definitions/*",
+            "*"
+        ]
+    },
+
     "module": "esnext",
     "sourceMap": true,
     "target": "es5",

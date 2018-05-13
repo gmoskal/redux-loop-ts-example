@@ -1,4 +1,4 @@
-import { LoopReducer, Cmd, loop } from "redux-loop"
+import { loop, Cmd, LoopReducer } from "redux-loop"
 import { api } from "../api"
 
 export function createAction<A extends string>(type: A): TypedAction<A>
@@ -43,15 +43,17 @@ export const initialState: State = {
     error: null
 }
 
-export const run = (f: Function, success: keyof typeof actions, fail: keyof typeof actions, args?: any[]) =>
-    Cmd.run<Actions>(f, {
-        successActionCreator: actions[success],
-        failActionCreator: actions[fail],
-        args
-    })
+const loadCmd = Cmd.run(api.load, {
+    successActionCreator: actions.loadSuccess,
+    failActionCreator: actions.loadError
+})
 
-const loadCmd = run(api.load, loadSuccess, loadError)
-const saveCmd = (value: number) => run(api.save, saveSuccess, saveError, [value])
+const saveCmd = (value: number) =>
+    Cmd.run(api.save, {
+        successActionCreator: actions.saveSuccess,
+        failActionCreator: actions.saveError,
+        args: [value]
+    })
 
 export const reducer: LoopReducer<State, Actions> = (state = initialState, action: Actions) => {
     switch (action.type) {

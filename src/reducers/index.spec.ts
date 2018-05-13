@@ -20,20 +20,20 @@ describe("reducer", () => {
 
     describe("loadCount()", () => {
         it("returns an object which deeply equals the object returned by reducer", () => {
-            const cmdRun = Cmd.run<Actions>(api.load, {
+            const cmdRun = Cmd.run(api.load, {
                 successActionCreator: actions.loadSuccess,
                 failActionCreator: actions.loadError
             })
             const [expectedState, expectedCommands] = loop({ ...initialState, isLoading: true }, cmdRun)
             const [currentState, currentCommands] = reducer(initialState, actions.load()) as Loop<State, Actions>
             expect(currentState).toEqual(expectedState)
-            expect(expectedCommands).toEqual(currentCommands)
+            expect(currentCommands).toEqual(expectedCommands)
         })
     })
 
     describe("saveCount()", () => {
-        it(" returns an object which deeply equals the object returned by reducer", () => {
-            const cmdRun = Cmd.run<Actions>(api.save, {
+        it("returns an object which deeply equals the object returned by reducer 2", () => {
+            const cmdRun = Cmd.run(api.save, {
                 successActionCreator: actions.saveSuccess,
                 failActionCreator: actions.saveError,
                 args: [5]
@@ -41,7 +41,7 @@ describe("reducer", () => {
             const [expectedState, expectedCommands] = loop({ ...initialState, isSaving: true }, cmdRun)
             const [currentState, currentCommands] = reducer(initialState, actions.save(5)) as Loop<State, Actions>
             expect(currentState).toEqual(expectedState)
-            expect(expectedCommands).toEqual(currentCommands)
+            expect(currentCommands).toEqual(expectedCommands)
         })
     })
 
