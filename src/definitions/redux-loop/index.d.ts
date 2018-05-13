@@ -99,17 +99,17 @@ declare namespace Cmd {
         args?: any[]
     ): MapCmd<A>
 
-    type RunFuncOptions<TSuccess, TFail, T> = {
-        successActionCreator: (a: T) => TSuccess
-
+    type RunFuncOptionsShared<TFail> = {
         testInvariants?: boolean
         failActionCreator?: (error: Error) => TFail
     }
 
-    type FuncOptionsNoArgs<TSuccess, TFail> = {
+    type RunFuncOptions<TSuccess, TFail, T> = RunFuncOptionsShared<TFail> & {
+        successActionCreator: (a: T) => TSuccess
+    }
+
+    type RunFuncOptionsNoArgs<TSuccess, TFail> = RunFuncOptionsShared<TFail> & {
         successActionCreator: () => TSuccess
-        testInvariants?: boolean
-        failActionCreator?: (error: Error) => TFail
     }
 
     type AsyncF0 = () => any
@@ -120,7 +120,7 @@ declare namespace Cmd {
 
     export function run<TS extends Action, TF extends Action>(
         func: AsyncF0,
-        options: FuncOptionsNoArgs<TS, TF>
+        options: RunFuncOptionsNoArgs<TS, TF>
     ): RunCmd<TS | TF>
     export function run<TS extends Action, TF extends Action, T>(
         func: AsyncF1<T>,
