@@ -3,7 +3,7 @@ const flakify = <T>(cb: () => T) =>
         setTimeout(() => {
             try {
                 if (Math.random() < 0.25) throw new Error("Failed arbitrarily")
-                else resolve(cb())
+                resolve(cb())
             } catch (err) {
                 reject(err)
             }
@@ -13,9 +13,7 @@ const flakify = <T>(cb: () => T) =>
 const KEY = "__counter"
 
 const saveSync = (counter: number) => localStorage.setItem(KEY, counter.toString())
-const save = (counter: number) => flakify(() => saveSync(counter))
+export const save = (counter: number) => flakify(() => saveSync(counter))
 
 const loadSync = () => parseInt(localStorage.getItem(KEY) || "0", 10) || 0
-const load = () => flakify(loadSync)
-
-export const api = { load, save }
+export const load = () => flakify(loadSync)

@@ -1,35 +1,18 @@
 import { loop, Cmd, LoopReducer } from "redux-loop"
-import { api } from "../api"
-
-export function createAction<A extends string>(type: A): TypedAction<A>
-export function createAction<A extends string, P>(type: A, payload: P): TypePayloadAction<A, P>
-export function createAction(type: any, payload?: any) {
-    return payload !== undefined ? { type, payload } : { type }
-}
+import { createAction } from "../utils"
+import * as api from "../api"
 
 const reset = "reset"
 const increment = "increment"
 const load = "load"
-const loadSuccess = "loadSuccess"
-const loadError = "loadError"
 const save = "save"
-const saveSuccess = "saveSuccess"
-const saveError = "saveError"
 
 export const actions = {
     [reset]: () => createAction(reset),
     [increment]: () => createAction(increment),
-
     [load]: () => createAction(load),
-    [loadSuccess]: (value: number) => createAction(loadSuccess, value),
-    [loadError]: (error: Error) => createAction(loadError, error),
-
-    [save]: (value: number) => createAction(save, value),
-    [saveSuccess]: () => createAction(saveSuccess),
-    [saveError]: (error: Error) => createAction(saveError, error)
+    [save]: () => createAction(save)
 }
-
-export type Actions = ReturnType<typeof actions[keyof typeof actions]>
 
 export type State = {
     counter: number
@@ -38,24 +21,37 @@ export type State = {
     error: Error | null
 }
 
-export const initialState: State = {
-    counter: 0,
-    error: null
+export const initialState = { counter: 0, error: null }
+
+const loadSuccess = "loadSuccess"
+const loadError = "loadError"
+const saveSuccess = "saveSuccess"
+const saveError = "saveError"
+
+export const internalActions = {
+    [loadSuccess]: (value: number) => createAction(loadSuccess, value),
+    [loadError]: (error: Error) => createAction(loadError, error),
+
+    [saveSuccess]: () => createAction(saveSuccess),
+    [saveError]: (error: Error) => createAction(saveError, error)
 }
 
+const allActions = { ...internalActions, ...actions }
+type AllActions = ReturnType<typeof allActions[keyof typeof allActions]>
+
 const loadCmd = Cmd.run(api.load, {
-    successActionCreator: actions.loadSuccess,
-    failActionCreator: actions.loadError
+    successActionCreator: allActions.loadSuccess,
+    failActionCreator: allActions.loadError
 })
 
 const saveCmd = (value: number) =>
     Cmd.run(api.save, {
-        successActionCreator: actions.saveSuccess,
-        failActionCreator: actions.saveError,
+        successActionCreator: allActions.saveSuccess,
+        failActionCreator: allActions.saveError,
         args: [value]
     })
 
-export const reducer: LoopReducer<State, Actions> = (state = initialState, action: Actions) => {
+export const reducer: LoopReducer<State, AllActions> = (state = initialState, action: AllActions) => {
     switch (action.type) {
         case increment:
             return { ...state, counter: state.counter + 1 }
@@ -68,7 +64,7 @@ export const reducer: LoopReducer<State, Actions> = (state = initialState, actio
         case loadError:
             return { ...state, error: action.payload, isLoading: false }
         case save:
-            return loop({ ...state, isSaving: true }, saveCmd(action.payload))
+            return loop({ ...state, isSaving: true }, saveCmd(state.counter))
         case saveSuccess:
             return { ...state, isSaving: false, error: null }
         case saveError:

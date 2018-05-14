@@ -22,6 +22,12 @@ exports[`components/Counter renders 1`] = `
   >
     save
   </button>
+  <br />
+  <button
+    onClick={[Function]}
+  >
+    reset
+  </button>
   <h1
     className="error"
   />
