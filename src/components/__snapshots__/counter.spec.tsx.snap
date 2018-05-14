@@ -6,6 +6,12 @@ exports[`components/Counter renders 1`] = `
     0
   </h1>
   <button
+    onClick={[Function]}
+  >
+    increment
+  </button>
+  <br />
+  <button
     disabled={undefined}
     onClick={[Function]}
   >
@@ -14,19 +20,13 @@ exports[`components/Counter renders 1`] = `
   <button
     onClick={[Function]}
   >
-    increment
+    reset
   </button>
   <button
     disabled={undefined}
     onClick={[Function]}
   >
     save
-  </button>
-  <br />
-  <button
-    onClick={[Function]}
-  >
-    reset
   </button>
   <h1
     className="error"

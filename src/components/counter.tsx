@@ -8,15 +8,15 @@ type Props = State & typeof actions
 export const Counter: React.SFC<Props> = ({ counter, increment, save, load, reset, isSaving, isLoading, error }) => (
     <div>
         <h1>{isLoading ? "..." : counter}</h1>
-        <button disabled={isLoading} onClick={load}>
-            {isLoading ? "loading..." : "load"}
-        </button>
         <button onClick={increment}>increment</button>
-        <button disabled={isSaving} onClick={save}>
-            {isSaving ? "saving..." : "save"}
-        </button>
         <br />
+        <button disabled={isLoading} onClick={load}>
+            {isLoading ? "loading ..." : "load"}
+        </button>
         <button onClick={reset}>reset</button>
+        <button disabled={isSaving} onClick={save}>
+            {isSaving ? "saving ..." : "save"}
+        </button>
         <h1 className="error">{error ? error.message : null}</h1>
     </div>
 )

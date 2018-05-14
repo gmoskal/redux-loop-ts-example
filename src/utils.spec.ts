@@ -1,4 +1,5 @@
 import { createAction } from "./utils"
+
 describe("utils", () => {
     describe("createAction()", () => {
         it("creates actions with no payload", () => expect(createAction("foo")).toEqual({ type: "foo" }))
