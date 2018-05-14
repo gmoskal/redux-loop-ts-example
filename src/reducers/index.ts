@@ -21,7 +21,7 @@ export type State = {
     error: Error | null
 }
 
-export const initialState = { counter: 0, error: null }
+export const initialState: State = { counter: 0, error: null }
 
 const loadSuccess = "loadSuccess"
 const loadError = "loadError"
@@ -53,23 +53,22 @@ const saveCmd = (value: number) =>
 
 export const reducer: LoopReducer<State, AllActions> = (state = initialState, action: AllActions) => {
     switch (action.type) {
+        case reset:
+            return initialState
         case increment:
             return { ...state, counter: state.counter + 1 }
-        case reset:
-            return { ...state, counter: 0 }
         case load:
             return loop({ ...state, isLoading: true }, loadCmd)
+        case save:
+            return loop({ ...state, isSaving: true }, saveCmd(state.counter))
         case loadSuccess:
             return { ...state, isLoading: false, counter: action.payload, error: null }
         case loadError:
             return { ...state, error: action.payload, isLoading: false }
-        case save:
-            return loop({ ...state, isSaving: true }, saveCmd(state.counter))
         case saveSuccess:
             return { ...state, isSaving: false, error: null }
         case saveError:
             return { ...state, error: action.payload, isSaving: false }
-        default:
-            return state
     }
+    return state
 }
